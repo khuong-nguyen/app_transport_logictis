@@ -88,53 +88,53 @@ export default class HomeScreen extends Component{
   renderItem = ({ item }) => {
     return (
       <View style = {{flex: 1}}>
-        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-          <Text style = {{fontSize: 18, color: 'green', marginBottom: 10, width: '25%'}}>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 10}}>
+          <Text style = {{fontSize: 18, color: 'green', paddingLeft: 5, width: '30%'}}>
               Booking No:
           </Text>
-          <Text style = {{fontSize: 18, color: 'green', marginBottom: 10, textAlign: 'right', width: '75%'}}>
+          <Text style = {{fontSize: 18, color: 'green', paddingRight: 5, textAlign: 'right', width: '70%'}}>
               {item.booking_no}
           </Text>
         </View>
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
-          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
-            Driver name:
+          <Text style = {{fontSize: 16, color: 'black', width: '25%', paddingLeft: 5}}>
+            Driver:
           </Text>
-          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%'}}>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', paddingRight: 5}}>
             {item.driver_name} - {item.container_truck_code}
           </Text>
         </View>  
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
-          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '30%', paddingLeft: 5}}>
             Pickup plan:
           </Text>
-          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', fontWeight: 'bold'}}>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%', fontWeight: 'bold', paddingRight: 5}}>
             {item.pickup_plan}
           </Text>
         </View>
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
-          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%'}}>
+          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%', paddingRight: 5}}>
             Pickup address: {item.pickup_address}
           </Text>
         </View>
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
-          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '30%', paddingLeft: 5}}>
             Delivery plan:
           </Text>
-          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', fontWeight: 'bold'}}>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%', fontWeight: 'bold', paddingRight: 5}}>
             {item.delivery_plan}
           </Text>
         </View>
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
-          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%'}}>
+          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%', paddingRight: 5}}>
             Delivery address: {item.delivery_address}
           </Text>
         </View>
         <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-          <Text style = {{fontSize: 16, color: 'black', width: '30%'}}>
-            Contact name:
+          <Text style = {{fontSize: 16, color: 'black', width: '25%', paddingLeft: 5}}>
+            Contact:
           </Text>
-          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%'}}>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', paddingRight: 5}}>
             {item.booking.bkg_contact_name} - {item.booking.bkg_contact_tel}
           </Text>
         </View>
