@@ -24,7 +24,7 @@ const homeScreenStack = ({navigation}) => {
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          title: 'Transport Schedule Today', //Set Header Title
+          title: 'Transport Schedule', //Set Header Title
           headerLeft: () => (
             <NavigationDrawerHeader navigationProps={navigation} />
           ),
@@ -61,7 +61,7 @@ const settingScreenStack = ({navigation}) => {
         name="SettingsScreen"
         component={SettingsScreen}
         options={{
-          title: 'Settings', //Set Header Title
+          title: 'Schedule History', //Set Header Title
         }}
       />
     </Stack.Navigator>
@@ -83,12 +83,12 @@ const DrawerNavigatorRoutes = (props) => {
       drawerContent={CustomSidebarMenu}>
       <Drawer.Screen
         name="homeScreenStack"
-        options={{drawerLabel: 'Schedule Today'}}
+        options={{drawerLabel: 'Schedule'}}
         component={homeScreenStack}
       />
       <Drawer.Screen
         name="settingScreenStack"
-        options={{drawerLabel: 'Setting'}}
+        options={{drawerLabel: 'Schedule History'}}
         component={settingScreenStack}
       />
     </Drawer.Navigator>

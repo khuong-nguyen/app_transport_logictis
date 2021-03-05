@@ -17,7 +17,9 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Config from "react-native-config";
-import { ConfirmProvider, useConfirm } from 'react-native-confirm-dialog'
+import validator from 'validator';
+import moment from 'moment';
+import { format } from "date-fns";
 
 export default class HomeScreen extends Component{
   constructor(){
@@ -63,7 +65,11 @@ export default class HomeScreen extends Component{
         console.log(error)
       })
   }
-
+  changeTitle(){
+    this.props.navigation.setOptions({
+      title: 'Transport Schedule: ' + dateDisplay
+    });
+  }
   async componentDidMount(){
     const { navigation } = this.props;
     this.focusListener = navigation.addListener("focus", () => {
@@ -81,36 +87,65 @@ export default class HomeScreen extends Component{
 
   renderItem = ({ item }) => {
     return (
-      <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-        <View style = {{flex: 1, justifyContent: 'center'}}>
-          <Text style = {{fontSize: 18, color: 'green', marginBottom: 15}}>
-            Booking No: {item.booking_no}
+      <View style = {{flex: 1}}>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+          <Text style = {{fontSize: 18, color: 'green', marginBottom: 10, width: '25%'}}>
+              Booking No:
           </Text>
-          <Text style = {{fontSize: 16, color: 'black'}}>
-          {item.driver_name} - {item.container_truck_code}
+          <Text style = {{fontSize: 18, color: 'green', marginBottom: 10, textAlign: 'right', width: '75%'}}>
+              {item.booking_no}
           </Text>
-          <Text>
-          Pickup plan: {item.pickup_plan}
+        </View>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
+            Driver name:
           </Text>
-          <Text>
-          Delivery plan: {item.delivery_plan}
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%'}}>
+            {item.driver_name} - {item.container_truck_code}
           </Text>
-          <Text>
-          Pickup address: {item.pickup_address}
+        </View>  
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
+            Pickup plan:
           </Text>
-          <Text>
-          Delivery address: {item.delivery_address}
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', fontWeight: 'bold'}}>
+            {item.pickup_plan}
           </Text>
-          <Text>
-          Contact name: {item.booking.bkg_contact_name} - {item.booking.bkg_contact_tel}
+        </View>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
+          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%'}}>
+            Pickup address: {item.pickup_address}
           </Text>
+        </View>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '25%'}}>
+            Delivery plan:
+          </Text>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', fontWeight: 'bold'}}>
+            {item.delivery_plan}
+          </Text>
+        </View>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
+          <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%'}}>
+            Delivery address: {item.delivery_address}
+          </Text>
+        </View>
+        <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+          <Text style = {{fontSize: 16, color: 'black', width: '30%'}}>
+            Contact name:
+          </Text>
+          <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%'}}>
+            {item.booking.bkg_contact_name} - {item.booking.bkg_contact_tel}
+          </Text>
+        </View>
+          
           <View style={styles.container}>
             <Button style={styles.button} title="Từ chối" onPress={() => this.buttonRefuse(item.id)}/>
             <Button style={styles.button} title="Nhận lệnh" onPress={() => this.buttonConfirm(item.id)}/>
             <Button style={styles.button} title="Hoàn thành" onPress={() => this.buttonCompleted(item.id)}/>
+          </View>
       </View>
-        </View>
-      </View>
+      
     )
   }
 
@@ -252,7 +287,7 @@ export default class HomeScreen extends Component{
     return (
       // Flat List Item
       <Text>
-          No Schedule Today Found
+          No Schedule Found
       </Text>
       
     );
@@ -270,25 +305,38 @@ export default class HomeScreen extends Component{
 
   getNextDateSchedule=()=>{
     var parts = dateDisplay.split("/");
-  //return new Date(parts[2], parts[1] - 1, parts[0])
-    var nextDate = new Date(parts[2],parts[1], parts[0]);
-    var date = nextDate.getDate() + 1;
-    var month = nextDate.getMonth();
-    var year = nextDate.getFullYear();
-    dateDisplay = date + '/' + month + '/' + year;
-    console.log(dateDisplay);
+    var strDay =  '00' + parts[0];
+    strDay = strDay.substr(strDay.length - 2,2);
+    
+    var strMonth =  '00' + parts[1];
+    strMonth = strMonth.substr(strMonth.length - 2,2);
+
+    var strDate = parts[2] + '-' + strMonth + '-' + strDay + 'T00:00:00.000Z';
+
+    var nextDate = new Date(strDate);
+    var tomorrow = moment(nextDate).add(1, 'day');
+
+    dateDisplay = tomorrow.format('DD/MM/YYYY');;
+
     this.loadScheduleForDriverInDate(dateDisplay);
   }
 
   getPreviousDateSchedule=()=>{
+
     var parts = dateDisplay.split("/");
-  //return new Date(parts[2], parts[1] - 1, parts[0])
-    var nextDate = new Date(parts[2],parts[1], parts[0]);
-    var date = nextDate.getDate() - 1;
-    var month = nextDate.getMonth();
-    var year = nextDate.getFullYear();
-    dateDisplay = date + '/' + month + '/' + year;
-    console.log(dateDisplay);
+  
+    var strDay =  '00' + parts[0];
+    strDay = strDay.substr(strDay.length - 2,2);
+    
+    var strMonth =  '00' + parts[1];
+    strMonth = strMonth.substr(strMonth.length - 2,2);
+
+    var strDate = parts[2] + '-' + strMonth + '-' + strDay + 'T00:00:00.000Z';
+   
+    var prvDate = new Date(strDate);
+    var yesterday = moment(prvDate).add(-1, 'day');
+
+    dateDisplay = yesterday.format('DD/MM/YYYY');;
     this.loadScheduleForDriverInDate(dateDisplay);
   }
 
@@ -308,24 +356,28 @@ export default class HomeScreen extends Component{
         ItemSeparatorComponent = {this.renderSeparator}
         ListEmptyComponent={this.emptyListMessage()}
       />
-      <View style={{flex: 1}}>
-        <View style={{flex: 1, flexDirection: 'row',justifyContent: 'flex-end'}}>
+      <View style={styles.bottomView}>
           <TouchableOpacity
-            style={{width:'50%',height:40,backgroundColor:'red', 
+            style={{width:'30%',height:30,backgroundColor:'blue', 
             alignItems:'center',justifyContent:'center'}}
             onPress={() => this.getPreviousDateSchedule()}
           >
             <Text style={{color:'white', fontSize: 16}}>Previous Date</Text>
           </TouchableOpacity>
+          <Text
+            style={{width:'40%',height:30,backgroundColor:'gray', 
+            textAlign:'center',color:'white', fontSize: 16}}
+          >
+            {dateDisplay}
+          </Text>
           <TouchableOpacity
-            style={{width:'50%',height:40,backgroundColor:'red', 
+            style={{width:'30%',height:30,backgroundColor:'red', 
             alignItems:'center',justifyContent:'center'}}
             onPress={() => this.getNextDateSchedule()}
           >
             <Text style={{color:'white', fontSize: 16}}>Next Date</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </View>
   );
   }
@@ -335,11 +387,23 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10
+    padding: 5,
+    marginBottom: 2,
+    marginTop: 2
   },
   button: {
     backgroundColor: 'blue',
     width: '30%',
     height: 40
+  },
+  bottomView: {
+    width: '100%',
+    height: 40,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute', //Here is the trick
+    bottom: 0, //Here is the trick
+    flexDirection: 'row'
   }
 });

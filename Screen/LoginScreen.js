@@ -45,7 +45,6 @@ const LoginScreen = ({navigation}) => {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-    console.log(Config.API_URL);
     fetch(Config.API_URL + '/api/login', {
       method: 'POST',
       body: formBody,
