@@ -12,6 +12,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './DrawerScreens/HomeScreen';
 import SettingsScreen from './DrawerScreens/SettingScreen';
 import CustomSidebarMenu from './Components/CustomSidebarMenu';
+import ScheduleDocumentScreen from './DrawerScreens/ScheduleDocumentScreen';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
 
 const Stack = createStackNavigator();
@@ -35,6 +36,13 @@ const homeScreenStack = ({navigation}) => {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           },
+        }}
+      />
+      <Stack.Screen
+        name="ScheduleDocument"
+        component={ScheduleDocumentScreen}
+        options={{
+          title: 'Schedule Document', //Set Header Title
         }}
       />
     </Stack.Navigator>

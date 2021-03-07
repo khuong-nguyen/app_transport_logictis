@@ -67,6 +67,9 @@ const App = () => {
         <Stack.Screen
           name="DrawerNavigationRoutes"
           component={DrawerNavigationRoutes}
+          options={{
+            title: 'Schedule Document'
+          }}
           // Hiding header for Navigation Drawer as we will use our custom header
           options={{headerShown: false}}
         />
