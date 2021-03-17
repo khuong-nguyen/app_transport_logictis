@@ -69,7 +69,7 @@ const settingScreenStack = ({navigation}) => {
         name="SettingsScreen"
         component={SettingsScreen}
         options={{
-          title: 'Schedule History', //Set Header Title
+          title: 'My Location', //Set Header Title
         }}
       />
     </Stack.Navigator>
@@ -96,7 +96,7 @@ const DrawerNavigatorRoutes = (props) => {
       />
       <Drawer.Screen
         name="settingScreenStack"
-        options={{drawerLabel: 'Schedule History'}}
+        options={{drawerLabel: 'My Location'}}
         component={settingScreenStack}
       />
     </Drawer.Navigator>

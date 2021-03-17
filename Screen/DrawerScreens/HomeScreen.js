@@ -14,13 +14,17 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Alert,
-  TouchableHighlight
+  TouchableHighlight,
+  PermissionsAndroid,
+  Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Config from "react-native-config";
 import validator from 'validator';
 import moment from 'moment';
 import { format } from "date-fns";
+import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
 
 export default class HomeScreen extends Component{
   constructor(){
@@ -34,8 +38,6 @@ export default class HomeScreen extends Component{
   async loadScheduleForDriverInDate(scheduleDate){
     var ACCESS_TOKEN = await AsyncStorage.getItem('token');
       var employee_id = await AsyncStorage.getItem('employee_id');
-      //var fromDate = this.getCurrentDate();
-      //var toDate = this.getCurrentDate();
       var fromDate = scheduleDate;
       var toDate = scheduleDate;
       let dataToSend = {driver_id: employee_id, from: fromDate, to: toDate};
