@@ -110,7 +110,7 @@ export default class HomeScreen extends Component{
           </View>  
           <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
             <Text style = {{fontSize: 16, color: 'black', width: '30%', paddingLeft: 5}}>
-              Pickup plan:
+              Nhận hàng:
             </Text>
             <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%', fontWeight: 'bold', paddingRight: 5}}>
               {item.pickup_plan}
@@ -118,12 +118,12 @@ export default class HomeScreen extends Component{
           </View>
           <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
             <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%', paddingRight: 5}}>
-              Pickup address: {item.pickup_address}
+              {item.pickup_address}
             </Text>
           </View>
           <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
             <Text style = {{fontSize: 16, color: 'black', width: '30%', paddingLeft: 5}}>
-              Delivery plan:
+              Chuyển hàng:
             </Text>
             <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%', fontWeight: 'bold', paddingRight: 5}}>
               {item.delivery_plan}
@@ -131,7 +131,15 @@ export default class HomeScreen extends Component{
           </View>
           <View style = {{flex: 1, flexDirection: 'row', marginBottom: 8}}>
             <Text style = {{fontSize: 14, color: 'black', textAlign: 'right', fontStyle: 'italic', width: '100%', paddingRight: 5}}>
-              Delivery address: {item.delivery_address}
+              {item.delivery_address}
+            </Text>
+          </View>
+          <View style = {{flex: 1, flexDirection: 'row', marginBottom: 1}}>
+            <Text style = {{fontSize: 16, color: 'black', width: '30%', paddingLeft: 5}}>
+              Đ/c con:
+            </Text>
+            <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '70%', fontWeight: 'bold', paddingRight: 5}}>
+              {item.booking.pick_up_cy}
             </Text>
           </View>
           <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
@@ -140,6 +148,22 @@ export default class HomeScreen extends Component{
             </Text>
             <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', paddingRight: 5}}>
               {item.booking.bkg_contact_name} - {item.booking.bkg_contact_tel}
+            </Text>
+          </View>
+          <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+            <Text style = {{fontSize: 16, color: 'black', width: '25%', paddingLeft: 5}}>
+              Hàng hoá:
+            </Text>
+            <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', paddingRight: 5}}>
+              {item.booking.cmdt_2}
+            </Text>
+          </View>
+          <View style = {{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+            <Text style = {{fontSize: 16, color: 'black', width: '25%', paddingLeft: 5}}>
+              TP/SZ:
+            </Text>
+            <Text style = {{fontSize: 16, color: 'black', textAlign: 'right', width: '75%', paddingRight: 5}}>
+              {item.container.container_code}
             </Text>
           </View>
             
